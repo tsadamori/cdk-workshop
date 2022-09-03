@@ -16,7 +16,7 @@ test('DonamoDB Table Created', () => {
   // THEN
 
   const template = Template.fromStack(stack)
-  template.resourceCountIs('AWS:DynamoDB::Table', 1)
+  template.resourceCountIs('AWS::DynamoDB::Table', 1)
 })
 
 test('Lamnda Has Environment Variables', () => {
