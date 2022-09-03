@@ -23,6 +23,7 @@ export class HitCounter extends Construct {
         name: 'path',
         type: dynamodb.AttributeType.STRING,
       },
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
     })
     this.table = table
 

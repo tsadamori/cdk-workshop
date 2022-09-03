@@ -26,7 +26,7 @@ export class CdkStack extends cdk.Stack {
     new TableViewer(this, 'ViewHitCounter', {
       title: 'Hello Hits',
       table: helloWithCounter.table,
-      sortBy: 'path',
+      sortBy: 'hits',
     })
   }
 }
