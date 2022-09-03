@@ -2,7 +2,6 @@ import { Template, Capture } from 'aws-cdk-lib/assertions'
 import * as cdk from 'aws-cdk-lib'
 import * as lambda from 'aws-cdk-lib/aws-lambda'
 import { HitCounter } from '../lib/hitcounter'
-import { LambdaDestination } from 'aws-cdk-lib/aws-lambda-destinations'
 
 test('DonamoDB Table Created', () => {
   const stack = new cdk.Stack()
@@ -66,4 +65,19 @@ test('DynamoDB Table Created With Encryption', () => {
       SSEEnabled: true,
     },
   })
+})
+
+test('read capacity can be configured', () => {
+  const stack = new cdk.Stack()
+
+  expect(() => {
+    new HitCounter(stack, 'MyTestConstruct', {
+      downstream: new lambda.Function(stack, 'TestFunction', {
+        runtime: lambda.Runtime.NODEJS_14_X,
+        handler: 'hello.henalder',
+        code: lambda.Code.fromAsset('lambda'),
+      }),
+      readCapacity: 3,
+    })
+  }).toThrowError(/readCapacity must be greater than 5 and less than 20/)
 })
