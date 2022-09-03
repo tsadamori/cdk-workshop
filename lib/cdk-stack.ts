@@ -1,5 +1,6 @@
 import * as cdk from 'aws-cdk-lib'
 import * as lambda from 'aws-cdk-lib/aws-lambda'
+import * as apigw from 'aws-cdk-lib/aws-apigateway'
 import { Construct } from 'constructs'
 
 export class CdkStack extends cdk.Stack {
@@ -10,6 +11,10 @@ export class CdkStack extends cdk.Stack {
       runtime: lambda.Runtime.NODEJS_14_X,
       code: lambda.Code.fromAsset('lambda'),
       handler: 'hello.handler',
+    })
+
+    new apigw.LambdaRestApi(this, 'Endpoint', {
+      handler: hello,
     })
   }
 }
